@@ -102,7 +102,7 @@ const createPost = (item) => {
 
   card_body.append(card_text);
 
-  card_body.innerHTML += '<a href="#" class="btn btn-dark">Открыть пост</a>';
+  card_body.innerHTML += `<a href="post.html?postId=${item.id}" class="btn btn-dark">Открыть пост</a>`;
 
   return col;
 };
