@@ -5,11 +5,11 @@ const answer = fetch("https://jsonplaceholder.typicode.com/users")
 const renderUsers = (data) => {
   const cards_holder = document.querySelector(".cards-holder");
   data.forEach((item) => {
-    cards_holder.append(createUsers(item));
+    cards_holder.append(createUser(item));
   });
 };
 
-const createUsers = (item) => {
+const createUser = (item) => {
   const card = document.createElement("div");
   card.classList.add("card", "w-100");
   card.dataset.id = item.id;
@@ -43,8 +43,7 @@ const createUsers = (item) => {
   card_body.append(card_website);
   card_website.innerText = item.website;
 
-  card_body.innerHTML +=
-    '<a href="#" class="btn btn-dark">Перейти на страницу пользователя</a>';
+  card_body.innerHTML += `<a href="user.html?id=${item.id}&userId=${item.userId}" class="btn btn-dark">Перейти на страницу пользователя</a>`;
 
   return card;
 };
