@@ -1,8 +1,14 @@
-const answer = fetch("https://jsonplaceholder.typicode.com/users")
+const usersContainer = document.querySelector(".users");
+const loader = document.querySelector(".loader");
+usersContainer.style.display = "none";
+
+fetch("https://jsonplaceholder.typicode.com/users")
   .then((res) => res.json())
   .then((data) => renderUsers(data));
 
 const renderUsers = (data) => {
+  loader.style.display = "none";
+  usersContainer.style.display = "block";
   const cards_holder = document.querySelector(".cards-holder");
   data.forEach((item) => {
     cards_holder.append(createUser(item));

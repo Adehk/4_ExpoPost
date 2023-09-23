@@ -1,4 +1,9 @@
 const userId = location.search.substring(4);
+const userContainer = document.querySelector(".user");
+const postsContainer = document.querySelector(".cards");
+const loader = document.querySelector(".loader");
+userContainer.style.display = "none";
+postsContainer.style.display = "none";
 
 fetch(`https://jsonplaceholder.typicode.com/users?id=${userId}`)
   .then((res) => res.json())
@@ -9,8 +14,10 @@ fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
   .then((data) => renderPosts(data));
 
 const renderUser = (data) => {
+  loader.style.display = "none";
+  userContainer.style.display = "block";
+  const card_container = document.querySelector(".card_container");
   data.forEach((item) => {
-    const card_container = document.querySelector(".card_container");
     card_container.append(createUser(item));
   });
 };
@@ -65,6 +72,7 @@ const createUser = (item) => {
 }
 
 const renderPosts = (data) => {
+  postsContainer.style.display = "block";
   const row = document.querySelector(".row");
   const count = document.querySelector(".count");
   count.innerText = `(${data.length})`;

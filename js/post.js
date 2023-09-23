@@ -1,4 +1,9 @@
 const postId = window.location.search.substring(8);
+const containerComments = document.querySelector(".comments");
+const containerPosts = document.querySelector(".posts");
+const loader = document.querySelector(".loader");
+containerComments.style.display = "none";
+containerPosts.style.display = "none";
 
 fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
   .then((res) => res.json())
@@ -9,16 +14,14 @@ fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
   .then((data) => renderComments(data));
 
 const renderPost = (data) => {
-  const container = document.querySelector(".posts");
-
-  container.append(createPost(data));
+  loader.style.display = "none";
+  containerPosts.style.display = "block";
+  containerPosts.append(createPost(data));
 };
 
 const createPost = (data) => {
   const col = document.createElement("div");
   col.classList.add("col");
-
-  //col.href = 'post.html';
 
   const card = document.createElement("div");
   card.classList.add("card");
@@ -44,11 +47,11 @@ const createPost = (data) => {
 };
 
 const renderComments = (data) => {
-  const container = document.querySelector(".comments");
+  containerComments.style.display = "block";
   const count = document.querySelector(".count");
   count.innerText = "(" + data.length + ")";
   console.log(data);
-  data.forEach((item) => container.append(createComment(item)));
+  data.forEach((item) => containerComments.append(createComment(item)));
 };
 
 const createComment = (data) => {

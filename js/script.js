@@ -1,8 +1,14 @@
-const answer = fetch("https://jsonplaceholder.typicode.com/posts")
+const postsContainer = document.querySelector(".cards");
+const loader = document.querySelector(".loader");
+postsContainer.style.display = "none";
+
+fetch("https://jsonplaceholder.typicode.com/posts")
   .then((res) => res.json())
   .then((data) => renderPosts(data.splice(0, 20)));
 
 const renderPosts = (data) => {
+  loader.style.display = "none";
+  postsContainer.style.display = "block";
   const row = document.querySelector(".row");
   data.forEach((item) => {
     row.append(createPost(item));

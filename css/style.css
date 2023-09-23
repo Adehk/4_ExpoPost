@@ -33,6 +33,7 @@
 
 .card_container {
   margin-top: 80px;
+  margin-bottom: -65px;
 }
 .card_container .card {
   border: none;
@@ -40,4 +41,11 @@
 
 .heading {
   margin-bottom: 30px;
+}
+
+.loader {
+  height: calc(100vh - 150px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }/*# sourceMappingURL=style.css.map */
