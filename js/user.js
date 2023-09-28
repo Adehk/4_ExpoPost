@@ -129,3 +129,16 @@ const createPost = (item) => {
 </div>
 </div> */
 }
+
+// -------------------Поиск--------------------
+
+const searchBtn = document.querySelector(".btn", "btn-outline-success");
+const input = document.querySelector(".form-control", "me-2");
+
+const search = (event) => {
+  event.preventDefault();
+  window.location.href =
+    window.location.origin + `/pages/search.html?name=${input.value}`;
+};
+
+searchBtn.addEventListener("click", search);

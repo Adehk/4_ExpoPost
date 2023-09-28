@@ -1,23 +1,29 @@
-const usersContainer = document.querySelector(".users");
+const inputValue = window.location.search.substring(6);
+const userId = location.search.substring(4);
+const userContainer = document.querySelector(".user");
 const loader = document.querySelector(".loader");
-usersContainer.style.display = "none";
+userContainer.style.display = "none";
 
-fetch("https://jsonplaceholder.typicode.com/users")
+fetch(`https://jsonplaceholder.typicode.com/users?name=${inputValue}`)
   .then((res) => res.json())
-  .then((data) => renderUsers(data));
+  .then((data) => renderUser(data));
 
-const renderUsers = (data) => {
+fetch(`https://jsonplaceholder.typicode.com/posts?title=${inputValue}`)
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+
+const renderUser = (data) => {
   loader.style.display = "none";
-  usersContainer.style.display = "block";
-  const cards_holder = document.querySelector(".cards-holder");
-  data.forEach((item) => {
-    cards_holder.append(createUser(item));
-  });
+  userContainer.style.display = "block";
+  const card_container = document.querySelector(".card_container");
+  data.length !== 0
+    ? data.forEach((item) => card_container.append(createUser(item)))
+    : (card_container.innerText = "Пользователь не найден");
 };
 
 const createUser = (item) => {
   const card = document.createElement("div");
-  card.classList.add("card", "w-100");
+  card.classList.add("card", "border", "w-100");
   card.dataset.id = item.id;
 
   const card_body = document.createElement("div");
@@ -53,19 +59,6 @@ const createUser = (item) => {
 
   return card;
 };
-
-{
-  /* <div class="card w-100">
-  <div class="card-body">
-    <h5 class="card-name">Leanne Graham</h5>
-    <p class="card-username">Bret</p>
-    <p class="card-email">Sincere@april.biz</p>
-    <p class="card-phone">1-770-736-8031 x56442</p>
-    <p class="card-website">hildegard.org</p>
-    <a href="#" class="btn btn-dark">Перейти на страницу пользователя</a>
-  </div>
-</div> */
-}
 
 // -------------------Поиск--------------------
 
