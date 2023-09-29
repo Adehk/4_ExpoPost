@@ -18,7 +18,7 @@ const renderUser = (data) => {
   const card_container = document.querySelector(".card_container");
   data.length !== 0
     ? data.forEach((item) => card_container.append(createUser(item)))
-    : (card_container.innerText = "Пользователь не найден");
+    : (card_container.innerText = "Пользователь не найден.");
 };
 
 const createUser = (item) => {
