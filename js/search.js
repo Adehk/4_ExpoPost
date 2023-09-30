@@ -1,8 +1,9 @@
 const inputValue = window.location.search.substring(6);
-const userId = location.search.substring(4);
 const userContainer = document.querySelector(".user");
 const loader = document.querySelector(".loader");
 userContainer.style.display = "none";
+const postContainer = document.querySelector(".posts");
+postContainer.style.display = "none";
 
 fetch(`https://jsonplaceholder.typicode.com/users?name=${inputValue}`)
   .then((res) => res.json())
@@ -10,7 +11,7 @@ fetch(`https://jsonplaceholder.typicode.com/users?name=${inputValue}`)
 
 fetch(`https://jsonplaceholder.typicode.com/posts?title=${inputValue}`)
   .then((res) => res.json())
-  .then((data) => console.log(data));
+  .then((data) => renderPost(data));
 
 const renderUser = (data) => {
   loader.style.display = "none";
@@ -18,7 +19,7 @@ const renderUser = (data) => {
   const card_container = document.querySelector(".card_container");
   data.length !== 0
     ? data.forEach((item) => card_container.append(createUser(item)))
-    : (card_container.innerText = "Пользователь не найден.");
+    : (card_container.innerText = "Пользователь/Пост не найден");
 };
 
 const createUser = (item) => {
@@ -58,6 +59,48 @@ const createUser = (item) => {
   card_body.innerHTML += `<a href="user.html?id=${item.id}&userId=${item.userId}" class="btn btn-dark">Перейти на страницу пользователя</a>`;
 
   return card;
+};
+
+const renderPost = (data) => {
+  loader.style.display = "none";
+  postContainer.style.display = "block";
+  data.forEach((item) => {
+    postContainer.append(createPost(item));
+  });
+};
+
+const createPost = (item) => {
+  const col = document.createElement("div");
+  col.classList.add("col");
+  col.dataset.id = item.id;
+  col.dataset.user_id = item.userId;
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  col.append(card);
+
+  const card_body = document.createElement("div");
+  card_body.classList.add("card-body");
+
+  card.append(card_body);
+
+  const card_title = document.createElement("h5");
+  card_title.classList.add("card-title");
+  card_title.innerText =
+    item.title.length > 25 ? item.title.substring(0, 25) + "..." : item.title;
+
+  card_body.append(card_title);
+
+  const card_text = document.createElement("p");
+  card_text.classList.add("card-text");
+  card_text.innerText =
+    item.body.length > 115 ? item.body.substring(0, 115) + "..." : item.body;
+
+  card_body.append(card_text);
+
+  card_body.innerHTML += `<a href="post.html?postId=${item.id}" class="btn btn-dark">Открыть пост</a>`;
+
+  return col;
 };
 
 // -------------------Поиск--------------------

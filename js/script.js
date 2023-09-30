@@ -71,8 +71,9 @@ const input = document.querySelector(".form-control", "me-2");
 
 const search = (event) => {
   event.preventDefault();
-  window.location.href = `/pages/search.html?name=${input.value}`;
+  window.location.href =
+    window.location.origin + `/pages/search.html?name=${input.value}`;
+  // window.location.href = `https://adehk.github.io/4_ExpoPost/pages/search.html?name=${input.value}`;
 };
-
 
 searchBtn.addEventListener("click", search);
