@@ -71,9 +71,8 @@ const input = document.querySelector(".form-control", "me-2");
 
 const search = (event) => {
   event.preventDefault();
-  window.location.href =
-    window.location.origin + `/pages/search.html?name=${input.value}`;
+  window.location.href = `/pages/search.html?name=${input.value}`;
 };
 
-searchBtn.addEventListener("click", search);
 
+searchBtn.addEventListener("click", search);
